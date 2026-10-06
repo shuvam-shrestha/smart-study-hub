@@ -31,6 +31,10 @@ export function searchKnowledge(query: string, category = "All") {
     .map(({ record }) => record);
 }
 
-export function askTSPedia(question: string) {
-  return searchKnowledge(question)[0] ?? knowledgeRecords.find((record) => record.id === "administration-003") ?? knowledgeRecords[0];
+export function askTSPedia(question: string): KnowledgeRecord {
+  const result = searchKnowledge(question)[0] ?? knowledgeRecords.find((record) => record.id === "administration-003") ?? knowledgeRecords[0];
+  if (!result) {
+    throw new Error("TSPedia knowledge data is empty.");
+  }
+  return result;
 }
