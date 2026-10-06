@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep student guidance data behind `src/services/retrieval.ts` so the local mock search can be replaced without redesigning the interface.

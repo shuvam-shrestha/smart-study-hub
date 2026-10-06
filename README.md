@@ -1,29 +1,28 @@
-# Welcome to your Lovable project
+# TSPedia
 
-This project was built with [Lovable](https://lovable.dev).
+TSPedia is a frontend prototype for a student information and guidance platform at Télécom SudParis. It helps students ask practical questions, find relevant guidance, see a recommended next step, and understand the source.
 
-## Build with Lovable
+This phase intentionally uses no backend, authentication, database, external API, or AI service.
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+## Run locally
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
+```bash
 git clone <this-repository-url>
 cd <repository-name>
 npm i
 npm run dev
 ```
 
-## Built with
+## Mock knowledge
+
+The local knowledge records live in `src/data/knowledge.json`. They cover accommodation, financial aid, visa and immigration, campus, student life, internships and careers, healthcare, banking, administration, and transportation.
+
+`src/services/retrieval.ts` contains the simple keyword-based search used by the prototype. To connect a future RAG API, replace the implementation of `askTSPedia` while keeping its response shape aligned with `KnowledgeRecord` in `src/types/knowledge.ts`.
+
+## Technology
 
 - TanStack Start
 - TypeScript
 - React
 - Tailwind CSS
+- Lucide icons
