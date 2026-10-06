@@ -1,0 +1,18 @@
+{
+  "document_id": "Unique record ID",
+  "title": "Question topic",
+  "category": "TSPedia service category",
+  "subcategory": "Retrieval subtopic",
+  "question": "Synthetic student query",
+  "answer": "University-grounded answer",
+  "next_action": "Recommended verification/next step",
+  "keywords": "RAG retrieval keywords",
+  "audience": "Intended student types",
+  "language": "Content language",
+  "campus": "Relevant campus context",
+  "source_type": "Official university source",
+  "source_url": "Official TSP source page",
+  "source_name": "Source organization",
+  "last_verified": "Date source was checked",
+  "synthetic_notice": "Prototype/data-quality notice"
+}

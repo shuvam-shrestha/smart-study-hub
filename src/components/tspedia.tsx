@@ -34,22 +34,24 @@ type View = "home" | "ask" | "explore" | "journey" | "search" | "saved" | "campu
 
 const categoryDetails = [
   ["Accommodation", "Housing, applications and useful resources.", Building2],
-  ["Financial Aid", "Scholarships, support and budgeting guidance.", Banknote],
-  ["Visa & Immigration", "Visa, arrival and residence permit steps.", Plane],
-  ["Campus", "Locations, facilities and student services.", Landmark],
-  ["Student Life", "Associations, events and community support.", Users],
-  ["Internships & Careers", "Career preparation, CVs and agreements.", BriefcaseBusiness],
-  ["Healthcare", "Healthcare access and wellbeing support.", HeartPulse],
-  ["Banking", "Accounts, bank details and practical guidance.", Banknote],
-  ["Administration", "Registration, documents and university steps.", ShieldCheck],
-  ["Transportation", "Campus routes and student travel options.", Train],
+  ["Financial Aid and Budget", "Scholarships, support and budgeting guidance.", Banknote],
+  ["Visa and International Arrival", "Visa, arrival and residence permit steps.", Plane],
+  ["Campus and Student Services", "Locations, facilities and student services.", Landmark],
+  ["Student Life and Clubs", "Associations, events and community support.", Users],
+  ["Internships and Career", "Career preparation, CVs and agreements.", BriefcaseBusiness],
+  ["Healthcare and Wellbeing", "Healthcare access and wellbeing support.", HeartPulse],
+  ["Banking and Payments", "Accounts, bank details and practical guidance.", Banknote],
+  ["Administration and Registration", "Registration, documents and university steps.", ShieldCheck],
+  ["Transportation and Navigation", "Campus routes and student travel options.", Train],
+  ["Student Journey", "Your step-by-step path from arrival to graduation.", GraduationCap],
+  ["General TSPedia / University", "About TSP, the two sites and general questions.", CircleHelp],
 ] as const;
 
 const suggestions = [
-  "How do I apply for accommodation?",
-  "What should I prepare before arriving?",
-  "Where can I find financial aid?",
-  "How can I prepare for my internship?",
+  "What is La Maisel?",
+  "Where is La Maisel located?",
+  "What is the Eiffel Scholarship Program?",
+  "Where are the two TSP sites?",
 ];
 
 const journeyStages = [
@@ -147,7 +149,7 @@ function AnswerView({ question, record, askAnother, open, saved, toggleSaved }: 
 function ExploreView({ open }: { open: (record: KnowledgeRecord) => void }) {
   const [query, setQuery] = useState(""); const [category, setCategory] = useState("All");
   const results = useMemo(() => searchKnowledge(query, category), [query, category]);
-  const filters = ["All", "Accommodation", "Visa & Immigration", "Financial Aid", "Campus", "Student Life", "Internships & Careers", "Healthcare"];
+  const filters = ["All", ...categoryDetails.map(([name]) => name)];
   return <main className="mx-auto max-w-7xl px-5 py-12 pb-28 lg:px-8"><p className="text-sm font-semibold text-primary">Knowledge library</p><h1 className="mt-2 text-4xl font-bold text-foreground">Explore student guidance</h1><p className="mt-3 max-w-2xl text-muted-foreground">Browse practical information by topic, or search in your own words.</p><div className="mt-8 max-w-2xl"><label htmlFor="explore-search" className="sr-only">Search guidance</label><div className="flex h-12 items-center rounded-md border border-border bg-background px-4 focus-within:ring-2 focus-within:ring-ring"><Search className="size-5 text-muted-foreground" /><input id="explore-search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search TSPedia" className="h-full min-w-0 flex-1 bg-transparent px-3 text-sm outline-none" /></div></div><div className="mt-5 flex gap-2 overflow-x-auto pb-2">{filters.map((item) => <Button key={item} size="sm" variant={category === item ? "default" : "outline"} onClick={() => setCategory(item)}>{item}</Button>)}</div><div className="mt-9 divide-y divide-border border-y border-border">{results.map((record) => <button key={record.id} onClick={() => open(record)} className="group flex w-full cursor-pointer items-start justify-between gap-6 py-6 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"><div><span className="text-xs font-semibold uppercase text-primary">{record.category}</span><h2 className="mt-2 text-lg font-semibold text-foreground group-hover:text-primary">{record.title}</h2><p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">{record.answer}</p></div><ChevronRight className="mt-7 size-5 shrink-0 text-muted-foreground group-hover:text-primary" /></button>)}</div>{results.length === 0 && <p className="py-16 text-center text-muted-foreground">No matching guidance found. Try a broader search.</p>}</main>;
 }
 

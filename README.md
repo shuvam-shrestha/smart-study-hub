@@ -6,6 +6,8 @@ This phase intentionally uses no backend, authentication, database, external API
 
 ## Run locally
 
+Requires Node.js 20.12 or newer (the Vite 8 toolchain uses `node:util` APIs added in 20.12).
+
 ```bash
 git clone <this-repository-url>
 cd <repository-name>
@@ -13,11 +15,17 @@ npm i
 npm run dev
 ```
 
+If `npm i` fails while resolving peer dependencies, retry with `npm i --legacy-peer-deps`.
+
 ## Mock knowledge
 
-The local knowledge records live in `src/data/knowledge.json`. They cover accommodation, financial aid, visa and immigration, campus, student life, internships and careers, healthcare, banking, administration, and transportation.
+The prototype's "chatbot" has no real AI. When a student asks a question, `src/services/retrieval.ts` runs a simple keyword-based search over the local records and returns the single best match, which the UI renders as the answer.
 
-`src/services/retrieval.ts` contains the simple keyword-based search used by the prototype. To connect a future RAG API, replace the implementation of `askTSPedia` while keeping its response shape aligned with `KnowledgeRecord` in `src/types/knowledge.ts`.
+The app reads its records from `src/data/knowledge.json` (137 records), imported in `src/services/retrieval.ts`. That file is **generated** from the source dataset in `data/all_knowledge.jsonl` by mapping each record into the `KnowledgeRecord` shape defined in `src/types/knowledge.ts` (`document_id` → `id`, `next_action` → `nextStep`, and `details` derived from the next action, audience, campus, source, and verification date). To change the knowledge base, edit `data/all_knowledge.jsonl` and regenerate `src/data/knowledge.json`.
+
+The records span 12 categories: accommodation, financial aid and budget, visa and international arrival, campus and student services, student life and clubs, internships and career, healthcare and wellbeing, banking and payments, administration and registration, transportation and navigation, student journey, and general university information.
+
+To connect a future RAG API, replace the implementation of `askTSPedia` while keeping its response shape aligned with `KnowledgeRecord`.
 
 ## Technology
 
